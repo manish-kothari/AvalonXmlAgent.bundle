@@ -204,15 +204,21 @@ def get_artist_cover(media):
         return None
 
 
-def get_actor_thumb(name):
+def get_actor_details(name):
+    if(name is None):
+        return None
+    
     actor_directory = Prefs["ActorsDirectory"]
     if not actor_directory or not exists(actor_directory):
-        return ""
-    for ext in IMAGE_EXTS:
-        image_path = join(actor_directory, "%s.%s" % (name, ext))
-        if exists(image_path):
-            return image_path
-    return ""
+        return None
+    
+    actor_xml = join(actor_directory, "%s.xml" % name)
+    if exists(actor_xml):
+        xml_str = Core.storage.load(actor_xml)
+        tag_element = XML.ElementFromString(xml_str)
+        return tag_element
+    else:
+        return None
 
 
 def select_exist(*args):

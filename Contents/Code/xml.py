@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from helper import get_actor_thumb
-
+from helper import get_actor_details
+from log import *
 
 # noinspection PyClassHasNoInit
 class XmlUtil:
@@ -51,9 +51,14 @@ class XmlUtil:
         for tag_element in tag_elements:
             name = XmlUtil.get_text(tag_element, "name", "")
             role = XmlUtil.get_text(tag_element, "role", "")
-            thumb = XmlUtil.get_text(tag_element, "thumb", "")
-            if not thumb:
-                thumb = get_actor_thumb(name)
+            thumb = XmlUtil.get_text(tag_element, "thumb", "")  
+            if not thumb or not role :
+                actor_tag = get_actor_details(name)
+                if(actor_tag is not None):
+                    if not thumb:
+                        thumb = XmlUtil.get_text(actor_tag, "thumb", "")
+                    if not role: 
+                        role = XmlUtil.get_text(actor_tag, "defaultRole", "")
             actors.append((name, role, thumb))
         return actors
 

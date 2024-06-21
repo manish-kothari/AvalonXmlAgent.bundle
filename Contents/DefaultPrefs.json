@@ -21,7 +21,7 @@
   },
   {
     "id": "ActorsDirectory",
-    "label": "Find image from actor folder if thumb is not define. (Empty to disable)",
+    "label": "External Directory where XMLs for Actors can be stored for referencing thumbnails (Empty to disable)",
     "type": "text",
     "default": ""
   }
